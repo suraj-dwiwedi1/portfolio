@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #222;
+        }
+        /*photo */
+        .profile-photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+        /* Navbar */
+        nav {
+            background-color: #111;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h2 {
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            color: #00adb5;
+        }
+
+        /* Home */
+        #home {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .home-content h1 {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .home-content h1 span {
+            color: #00adb5;
+        }
+
+        .home-content p {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #00adb5;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #008b91;
+        }
+
+        /* Common Section */
+        section {
+            padding: 70px 8%;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 40px;
+        }
+
+        /* About */
+        .about {
+            background-color: white;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .skill {
+            background-color: white;
+            padding: 25px;
+            width: 180px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px #ddd;
+        }
+
+        .skill h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Projects */
+        .projects {
+            background-color: white;
+        }
+
+        .project-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        .project {
+            width: 280px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px #ddd;
+            background-color: #fafafa;
+        }
+
+        .project h3 {
+            margin-bottom: 12px;
+        }
+
+        .project p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Contact */
+        .contact {
+            text-align: center;
+        }
+
+        .contact p {
+            margin: 12px;
+            font-size: 17px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            .home-content h1 {
+                font-size: 38px;
+            }
+
+            .home-content p {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h2>My Portfolio</h2>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Home -->
+    <section id="home">
+        <div class="home-content">
+            
+             <img src="photo.jpg" alt="My Photo" class="profile-photo">
+
+            <h1>Hello, I'm <span>Monkey D Luffy</span></h1>
+
+            <p>
+                Beginner Web Developer | Python Learner | Student
+            </p>
+
+            <a href="#projects" class="btn">
+                View My Projects
+            </a>
+
+        </div>
+        
+    </section>
+
+
+    <!-- About -->
+    <section id="about" class="about">
+
+        <h2>About Me</h2>
+
+        <p>
+            Hello! My name is Monkey D Luffy. I am a student interested in
+            programming, web development and technology. I am currently
+            learning HTML, CSS, Python and other programming concepts.
+            I enjoy creating small projects and improving my coding skills.
+        </p>
+
+    </section>
+
+
+    <!-- Skills -->
+    <section id="skills">
+
+        <h2>My Skills</h2>
+
+        <div class="skills-container">
+
+            <div class="skill">
+                <h3>HTML</h3>
+                <p>Web Structure</p>
+            </div>
+
+            <div class="skill">
+                <h3>CSS</h3>
+                <p>Web Design</p>
+            </div>
+
+            <div class="skill">
+                <h3>Python</h3>
+                <p>Programming</p>
+            </div>
+
+            <div class="skill">
+                <h3>JavaScript</h3>
+                <p>Web Interaction</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Projects -->
+    <section id="projects" class="projects">
+
+        <h2>My Projects</h2>
+
+        <div class="project-container">
+
+            <div class="project">
+                <h3>Anime Website</h3>
+
+                <p>
+                    A simple website where users can explore anime
+                    information and story summaries.
+                </p>
+
+                 <a href="http://localhost:8080/test.html" class="btn">View Project</a>
+</div>
+
+
+            <div class="project">
+                <h3>Python Calculator</h3>
+
+                <p>
+                    A beginner Python calculator that performs
+                    basic mathematical operations.
+                </p>
+
+                <a href="http://localhost:8080/pycalculator.html" class="btn">View Project</a>
+            </div>
+
+
+            <div class="project">
+                <h3>My Future Project</h3>
+
+                <p>
+                    A new project that I will create while learning
+                    more programming and web development.
+                </p>
+
+                <a href="#" class="btn">View Project</a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+
+        <h2>Contact Me</h2>
+
+        <p>📧 Email: </p>
+
+        <p>📱 Phone: +91 XXXXX XXXXX</p>
+
+        <p>
+            
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Monkey D.Luffy. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>
