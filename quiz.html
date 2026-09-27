@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online MCQ Test</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f2f5f9;
+            color: #222;
+        }
+
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .quiz-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .question {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            background: #f1f5f9;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #e2e8f0;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .option.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .option.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #prevBtn {
+            background: #64748b;
+            color: white;
+        }
+
+        #nextBtn {
+            background: #2563eb;
+            color: white;
+        }
+
+        #submitBtn {
+            background: #16a34a;
+            color: white;
+            display: none;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result h2 {
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 35px;
+            font-weight: bold;
+            margin: 20px;
+            color: #16a34a;
+        }
+
+        #restartBtn {
+            background: #2563eb;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                margin: 15px auto;
+                padding: 10px;
+            }
+
+            .quiz-box {
+                padding: 18px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .option {
+                font-size: 15px;
+            }
+        }
+        /* Footer */
+        footer {
+            background-color: #ffffffa2;
+            color: black;
+            text-align: center;
+            padding: 20px;
+        }
+        .review-question {
+    text-align: left;
+    background: #f8fafc;
+    border-left: 5px solid #2563eb;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+.review-question h3 {
+    margin-bottom: 10px;
+}
+
+.review-question p {
+    margin: 7px 0;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#endTestBtn {
+    background: #dc2626;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#endTestBtn:hover {
+    background: #b91c1c;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#endTestBtn {
+    background: #dc2626;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#endTestBtn:hover {
+    background: #b91c1c;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Online MCQ Test</h1>
+        <p>Test Your Knowledge</p>
+    </div>
+
+    <div class="container">
+
+        <!-- QUIZ -->
+        <div class="quiz-box" id="quizBox">
+
+    <div class="top-bar">
+
+        <div class="progress" id="progress">
+            Question 1 of 50
+        </div>
+
+        <button type="button" id="endTestBtn" onclick="endTest()">
+    End Test
+</button>
+
+    </div>
+
+            <div class="question" id="question">
+                Loading question...
+            </div>
+
+            <div id="options"></div>
+
+            <div class="buttons">
+
+                <button id="prevBtn" onclick="previousQuestion()">
+                    Previous
+                </button>
+
+                <button id="nextBtn" onclick="nextQuestion()">
+                    Next
+                </button>
+
+                <button id="submitBtn" onclick="submitQuiz()">
+                    Submit Test
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div class="result" id="result">
+
+            <h2>Test Completed!</h2>
+
+            <p>Your Score</p>
+
+            <div class="score" id="score">
+                0 / 10
+            </div>
+
+            <p id="percentage"></p>
+        <div id="answerReview"></div>
+            <br>
+
+            <button id="restartBtn" onclick="restartQuiz()">
+                Restart Test
+            </button>
+
+        </div>
+
+    </div>
+
+
+<script>
+
+    // =========================
+    // QUESTIONS
+    // =========================
+
+const questions = [
+
+    // =========================
+    // NUMBER SYSTEM
+    // =========================
+
+    {
+        question: "Which of the following is an integer?",
+        options: ["2.5", "−7", "3/4", "0.5"],
+        answer: 1
+    },
+
+    {
+        question: "The additive identity is:",
+        options: ["1", "−1", "0", "10"],
+        answer: 2
+    },
+
+    {
+        question: "The successor of −6 is:",
+        options: ["−7", "−5", "5", "6"],
+        answer: 1
+    },
+
+    {
+        question: "The value of (−8) + 5 is:",
+        options: ["−13", "−3", "3", "13"],
+        answer: 1
+    },
+
+    {
+        question: "The value of 7 − (−3) is:",
+        options: ["4", "−4", "10", "−10"],
+        answer: 2
+    },
+
+    {
+        question: "Which number is smaller?",
+        options: ["−2", "−5", "0", "3"],
+        answer: 1
+    },
+
+    {
+        question: "The product of (−4) × (−6) is:",
+        options: ["−24", "10", "24", "−10"],
+        answer: 2
+    },
+
+    {
+        question: "Which of the following is the greatest number?",
+        options: ["−8", "−3", "−10", "−5"],
+        answer: 1
+    },
+
+
+    // =========================
+    // DECIMALS
+    // =========================
+
+    {
+        question: "0.5 is equal to:",
+        options: ["1/5", "1/2", "2/5", "5/2"],
+        answer: 1
+    },
+
+    {
+        question: "3.45 + 2.5 =",
+        options: ["5.95", "5.05", "6.05", "6.95"],
+        answer: 0
+    },
+
+    {
+        question: "7.8 − 3.25 =",
+        options: ["4.45", "4.55", "5.55", "5.45"],
+        answer: 1
+    },
+
+    {
+        question: "2.5 × 4 =",
+        options: ["8", "10", "12", "6"],
+        answer: 1
+    },
+
+    {
+        question: "6.4 ÷ 2 =",
+        options: ["2.2", "3.2", "4.2", "3.4"],
+        answer: 1
+    },
+
+    {
+        question: "5.67 × 100 =",
+        options: ["56.7", "567", "5670", "5.67"],
+        answer: 1
+    },
+
+    {
+        question: "45.6 ÷ 10 =",
+        options: ["456", "4.56", "0.456", "45.06"],
+        answer: 1
+    },
+
+    {
+        question: "Which is the smallest decimal?",
+        options: ["0.7", "0.07", "0.77", "0.17"],
+        answer: 1
+    },
+
+
+    // =========================
+    // ARITHMETIC EXPRESSIONS
+    // =========================
+
+    {
+        question: "5 + 3 × 2 =",
+        options: ["16", "11", "13", "10"],
+        answer: 1
+    },
+
+    {
+        question: "20 ÷ 4 + 6 =",
+        options: ["11", "10", "14", "8"],
+        answer: 0
+    },
+
+    {
+        question: "18 − (5 + 3) =",
+        options: ["10", "11", "12", "16"],
+        answer: 0
+    },
+
+    {
+        question: "4 × (6 + 2) =",
+        options: ["26", "28", "32", "24"],
+        answer: 2
+    },
+
+    {
+        question: "30 ÷ (5 + 1) =",
+        options: ["5", "6", "10", "4"],
+        answer: 0
+    },
+
+    {
+        question: "According to BODMAS, which operation is performed first?",
+        options: ["Addition", "Subtraction", "Brackets", "Division"],
+        answer: 2
+    },
+
+    {
+        question: "12 + 8 ÷ 4 =",
+        options: ["5", "20", "14", "8"],
+        answer: 2
+    },
+
+    {
+        question: "7 × 3 − 5 =",
+        options: ["16", "14", "21", "26"],
+        answer: 0
+    },
+
+
+    // =========================
+    // ALGEBRAIC EXPRESSIONS
+    // =========================
+
+    {
+        question: "Which of the following is an algebraic expression?",
+        options: ["15 + 5", "20 − 4", "3x + 7", "12 ÷ 3"],
+        answer: 2
+    },
+
+    {
+        question: "In 8x + 5, the coefficient of x is:",
+        options: ["5", "8", "x", "13"],
+        answer: 1
+    },
+
+    {
+        question: "In 7a + 9, the constant term is:",
+        options: ["7", "a", "9", "16"],
+        answer: 2
+    },
+
+    {
+        question: "Which are like terms?",
+        options: [
+            "3x and 5y",
+            "4a and 7a",
+            "2x and 2y",
+            "5p and 5q"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "3x + 5x =",
+        options: ["8", "8x", "15x", "2x"],
+        answer: 1
+    },
+
+    {
+        question: "9a − 4a =",
+        options: ["5", "13a", "5a", "36a"],
+        answer: 2
+    },
+
+    {
+        question: "If x = 4, the value of 3x + 2 is:",
+        options: ["10", "12", "14", "16"],
+        answer: 2
+    },
+
+    {
+        question: "The number of terms in 5x + 3y + 7 is:",
+        options: ["2", "3", "4", "5"],
+        answer: 1
+    },
+
+
+    // =========================
+    // PARALLEL AND INTERSECTING LINES
+    // =========================
+
+    {
+        question: "Two lines that never meet are called:",
+        options: [
+            "Intersecting lines",
+            "Parallel lines",
+            "Perpendicular lines",
+            "Curved lines"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Two lines meeting at one point are called:",
+        options: [
+            "Parallel lines",
+            "Intersecting lines",
+            "Equal lines",
+            "Horizontal lines"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Perpendicular lines form an angle of:",
+        options: ["45°", "60°", "90°", "180°"],
+        answer: 2
+    },
+
+    {
+        question: "The point where two lines meet is called the:",
+        options: [
+            "Vertex",
+            "Intersection point",
+            "Centre",
+            "Midpoint"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Two lines that intersect at 90° are called:",
+        options: [
+            "Parallel",
+            "Perpendicular",
+            "Horizontal",
+            "Vertical"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "How many lines can be drawn through two distinct points?",
+        options: ["One", "Two", "Three", "Infinitely many"],
+        answer: 0
+    },
+
+
+    // =========================
+    // TRIANGLES
+    // =========================
+
+    {
+        question: "A triangle has:",
+        options: ["2 sides", "3 sides", "4 sides", "5 sides"],
+        answer: 1
+    },
+
+    {
+        question: "The sum of the three angles of a triangle is:",
+        options: ["90°", "180°", "270°", "360°"],
+        answer: 1
+    },
+
+    {
+        question: "A triangle with all three sides equal is called:",
+        options: [
+            "Scalene",
+            "Isosceles",
+            "Equilateral",
+            "Right-angled"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "A triangle having two equal sides is called:",
+        options: [
+            "Scalene",
+            "Isosceles",
+            "Equilateral",
+            "Obtuse"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "A triangle having no equal sides is called:",
+        options: [
+            "Equilateral",
+            "Isosceles",
+            "Scalene",
+            "Right-angled"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "A triangle having one angle equal to 90° is called:",
+        options: [
+            "Acute triangle",
+            "Obtuse triangle",
+            "Right-angled triangle",
+            "Equilateral triangle"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "If two angles of a triangle are 60° and 70°, the third angle is:",
+        options: ["40°", "50°", "60°", "70°"],
+        answer: 1
+    },
+
+
+    // =========================
+    // FRACTIONS
+    // =========================
+
+    {
+        question: "2/5 + 1/5 =",
+        options: ["3/5", "3/10", "2/10", "1/5"],
+        answer: 0
+    },
+
+    {
+        question: "3/4 − 1/4 =",
+        options: ["1/4", "2/4", "3/8", "1/2"],
+        answer: 3
+    },
+
+    {
+        question: "2/3 × 3/4 =",
+        options: ["1/2", "2/7", "3/7", "5/12"],
+        answer: 0
+    },
+
+    {
+        question: "Which fraction is equivalent to 3/5?",
+        options: ["6/10", "5/6", "9/20", "3/10"],
+        answer: 0
+    },
+
+    {
+        question: "The reciprocal of 4/7 is:",
+        options: ["4/7", "7/4", "3/7", "7/3"],
+        answer: 1
+    }
+
+];
+
+
+    // =========================
+    // VARIABLES
+    // =========================
+
+    let currentQuestion = 0;
+
+    let selectedAnswers = new Array(questions.length).fill(null);
+
+
+    // =========================
+    // LOAD QUESTION
+    // =========================
+
+    function loadQuestion() {
+
+        const q = questions[currentQuestion];
+
+        document.getElementById("progress").innerText =
+            "Question " + (currentQuestion + 1) +
+            " of " + questions.length;
+
+        document.getElementById("question").innerText =
+            q.question;
+
+        const optionsDiv =
+            document.getElementById("options");
+
+        optionsDiv.innerHTML = "";
+
+
+        q.options.forEach((option, index) => {
+
+            const label = document.createElement("label");
+
+            label.className = "option";
+
+            label.innerHTML = `
+                <input
+                    type="radio"
+                    name="answer"
+                    value="${index}"
+                    ${selectedAnswers[currentQuestion] === index ? "checked" : ""}
+                    onchange="selectAnswer(${index})"
+                >
+                ${option}
+            `;
+
+            optionsDiv.appendChild(label);
+
+        });
+
+
+        // Previous button
+
+        if (currentQuestion === 0) {
+            document.getElementById("prevBtn").style.visibility =
+                "hidden";
+        } else {
+            document.getElementById("prevBtn").style.visibility =
+                "visible";
+        }
+
+
+        // Next / Submit button
+
+        if (currentQuestion === questions.length - 1) {
+
+            document.getElementById("nextBtn").style.display =
+                "none";
+
+            document.getElementById("submitBtn").style.display =
+                "block";
+
+        } else {
+
+            document.getElementById("nextBtn").style.display =
+                "block";
+
+            document.getElementById("submitBtn").style.display =
+                "none";
+        }
+
+    }
+
+
+    // =========================
+    // SELECT ANSWER
+    // =========================
+
+    function selectAnswer(answer) {
+
+        selectedAnswers[currentQuestion] = answer;
+
+    }
+
+
+    // =========================
+    // NEXT QUESTION
+    // =========================
+
+    function nextQuestion() {
+
+        if (currentQuestion < questions.length - 1) {
+
+            currentQuestion++;
+
+            loadQuestion();
+
+        }
+
+    }
+
+
+    // =========================
+    // PREVIOUS QUESTION
+    // =========================
+
+    function previousQuestion() {
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            loadQuestion();
+
+        }
+
+    }
+
+
+    // =========================
+    // SUBMIT QUIZ
+    // =========================
+
+    function submitQuiz() {
+
+    let score = 0;
+
+    let reviewHTML = "";
+
+    questions.forEach((question, index) => {
+
+        const selected = selectedAnswers[index];
+
+        if (selected === question.answer) {
+            score++;
+        }
+
+        let selectedText =
+            selected === null
+            ? "Not Answered"
+            : question.options[selected];
+
+        let correctText =
+            question.options[question.answer];
+
+        let status =
+            selected === question.answer
+            ? "✅ Correct"
+            : "❌ Wrong";
+
+        reviewHTML += `
+            <div class="review-question">
+
+                <h3>Q${index + 1}. ${question.question}</h3>
+
+                <p>
+                    <strong>Your Answer:</strong>
+                    ${selectedText}
+                </p>
+
+                <p>
+                    <strong>Correct Answer:</strong>
+                    ${correctText}
+                </p>
+
+                <p class="status">
+                    ${status}
+                </p>
+
+            </div>
+        `;
+    });
+
+
+    const percentage =
+        Math.round((score / questions.length) * 100);
+
+
+    document.getElementById("quizBox").style.display =
+        "none";
+
+    document.getElementById("result").style.display =
+        "block";
+
+
+    document.getElementById("score").innerText =
+        score + " / " + questions.length;
+
+
+    document.getElementById("percentage").innerText =
+        "Percentage: " + percentage + "%";
+
+
+    document.getElementById("answerReview").innerHTML =
+        reviewHTML;
+}
+
+
+    // =========================
+    // RESTART QUIZ
+    // =========================
+
+function endTest() {
+
+    let confirmEnd = confirm(
+        "Are you sure you want to end the test?"
+    );
+
+    if (!confirmEnd) {
+        return;
+    }
+
+    // Calculate result
+    let score = 0;
+    let attempted = 0;
+
+    questions.forEach((question, index) => {
+
+        if (selectedAnswers[index] !== null) {
+            attempted++;
+        }
+
+        if (
+            question.answer !== null &&
+            selectedAnswers[index] === question.answer
+        ) {
+            score++;
+        }
+    });
+
+    let percentage = Math.round(
+        (score / questions.length) * 100
+    );
+
+    // Hide quiz
+    document.getElementById("quizBox").style.display = "none";
+
+    // Show result
+    document.getElementById("result").style.display = "block";
+
+    // Show score
+    document.getElementById("score").innerText =
+        score + " / " + questions.length;
+
+    // Show percentage and attempted questions
+    document.getElementById("percentage").innerText =
+        "Percentage: " + percentage + "% | Attempted: " +
+        attempted + " / " + questions.length;
+
+    // Show answer review
+    showAnswerReview();
+}
+
+function showAnswerReview() {
+
+    let reviewHTML = "";
+
+    questions.forEach((question, index) => {
+
+        let selected = selectedAnswers[index];
+
+        let yourAnswer =
+            selected === null
+            ? "Not Answered"
+            : question.options[selected];
+
+        let correctAnswer =
+            question.answer === null
+            ? "Answer not available"
+            : question.options[question.answer];
+
+        let status;
+
+        if (selected === null) {
+
+            status = "⚪ Not Answered";
+
+        } else if (
+            question.answer !== null &&
+            selected === question.answer
+        ) {
+
+            status = "✅ Correct";
+
+        } else {
+
+            status = "❌ Wrong";
+        }
+
+        reviewHTML += `
+            <div class="review-question">
+
+                <h3>Q${index + 1}. ${question.question}</h3>
+
+                <p>
+                    <strong>Your Answer:</strong>
+                    ${yourAnswer}
+                </p>
+
+                <p>
+                    <strong>Correct Answer:</strong>
+                    ${correctAnswer}
+                </p>
+
+                <p class="status">
+                    ${status}
+                </p>
+
+            </div>
+        `;
+    });
+
+   function restartQuiz() {
+    currentQuestion = 0;
+
+    selectedAnswers = new Array(questions.length).fill(null);
+
+    document.getElementById("result").style.display = "none";
+    document.getElementById("quizBox").style.display = "block";
+
+    loadQuestion();
+}
+    document.getElementById("answerReview").innerHTML =
+        reviewHTML;
+}
+
+
+    // Start quiz
+
+    loadQuestion();
+
+</script>
+         <!-- Footer -->
+          <footer>
+
+        <p>
+            © Created by SURAJ DWIWEDI.
+        </p>
+
+    </footer>
+
+</body>
+</html>
+</body>
+</html>
