@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online MCQ Test</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f2f5f9;
+            color: #222;
+        }
+
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .quiz-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .question {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            background: #f1f5f9;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #e2e8f0;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .option.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .option.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #prevBtn {
+            background: #64748b;
+            color: white;
+        }
+
+        #nextBtn {
+            background: #2563eb;
+            color: white;
+        }
+
+        #submitBtn {
+            background: #16a34a;
+            color: white;
+            display: none;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result h2 {
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 35px;
+            font-weight: bold;
+            margin: 20px;
+            color: #16a34a;
+        }
+
+        #restartBtn {
+            background: #2563eb;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                margin: 15px auto;
+                padding: 10px;
+            }
+
+            .quiz-box {
+                padding: 18px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .option {
+                font-size: 15px;
+            }
+            
+            .top-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+#endTestBtn {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+            
+        }
+        
+        .student-info {
+    margin-bottom: 20px;
+}
+
+.student-info label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.student-info input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+        /* Footer */
+        footer {
+            background-color: #ffffffa2;
+            color: black;
+            text-align: center;
+            padding: 20px;
+        }
+        .review-question {
+    text-align: left;
+    background: #f8fafc;
+    border-left: 5px solid #2563eb;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+.review-question h3 {
+    margin-bottom: 10px;
+}
+
+.review-question p {
+    margin: 7px 0;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#endTestBtn {
+    background: #dc2626;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#endTestBtn:hover {
+    background: #b91c1c;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#endTestBtn {
+    background: #dc2626;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+#endTestBtn:hover {
+    background: #b91c1c;
+}
+
+/* Start Screen */
+
+.start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #f5f7fb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.start-screen h1 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.start-box {
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.start-box label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.start-box input,
+.start-box select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.start-box button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 13px;
+    border: none;
+    border-radius: 6px;
+    background: #ff5c8a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.start-box button:hover {
+    opacity: 0.9;
+}
+
+#answerReview {
+    display: none;
+}
+
+#result button {
+    margin: 8px;
+}
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+        
+        
+        function downloadAnswerSheet() {
+
+    let answerHTML = `
+        <html>
+        <head>
+            <title>Answer Sheet</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 30px;
+                }
+
+                h1 {
+                    text-align: center;
+                }
+
+                .student-info {
+                    margin-bottom: 20px;
+                }
+
+                .question {
+                    margin-bottom: 15px;
+                    padding: 10px;
+                    border-bottom: 1px solid #ddd;
+                }
+            </style>
+        </head>
+        <body>
+
+        <h1>Answer Sheet</h1>
+
+        <div class="student-info">
+            <strong>Student Name:</strong>
+            ${document.getElementById("studentName").value}
+            <br><br>
+
+            <strong>Class:</strong>
+            ${studentClass}
+            <br><br>
+
+            <strong>Subject:</strong>
+            ${studentSubject}
+        </div>
+    `;
+
+    questions.forEach((question, index) => {
+
+        const selected = selectedAnswers[index];
+
+        const yourAnswer =
+            selected === null
+                ? "Not Answered"
+                : question.options[selected];
+
+        const correctAnswer =
+            question.options[question.answer];
+
+        answerHTML += `
+            <div class="question">
+                <strong>Q${index + 1}. ${question.question}</strong>
+                <p>Your Answer: ${yourAnswer}</p>
+                <p>Correct Answer: ${correctAnswer}</p>
+            </div>
+        `;
+    });
+
+    answerHTML += `
+        </body>
+        </html>
+    `;
+
+    const blob = new Blob([answerHTML], {
+        type: "text/html"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Answer_Sheet.html";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+        
+    </script>
+    
+</head>
+
+<body>
+    
+    <div id="startScreen" class="start-screen">
+
+    <h1>Practice Quiz</h1>
+
+    <div class="start-box">
+
+        <label for="studentNameStart">Student Name</label>
+        <input
+            type="text"
+            id="studentNameStart"
+            placeholder="Enter your name"
+        >
+
+        <label for="classSelect">Class</label>
+        <select id="classSelect">
+            <option value="">Select Class</option>
+            
+            <option value="class 5">
+                
+            </option>
+            <option value="Class 6">Class 6</option>
+            <option value="Class 7">Class 7</option>
+            <option value="Class 8">Class 8</option>
+            <option value="Class 9">Class 9</option>
+            <option value="Class 10">Class 10</option>
+        </select>
+
+        <label for="subjectSelect">Subject</label>
+        <select id="subjectSelect">
+            <option value="">Select Subject</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Social Science">Social Science</option>
+            <option value="Computer">Computer</option>
+        </select>
+
+        <button type="button" onclick="startTest()">
+            START TEST
+        </button>
+
+    </div>
+</div>
+
+    <div class="header">
+        <h1>Online MCQ Test</h1>
+        <p>Test Your Knowledge</p>
+    </div>
+
+    <div class="container">
+
+        <!-- QUIZ -->
+        <div class="quiz-box" id="quizBox">
+
+    <div class="top-bar">
+
+    <div class="student-info">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter your name">
+    </div>
+
+    <div class="progress-row">
+        <div class="progress" id="progress">Question 1 of 50</div>
+
+        <button type="button" id="endTestBtn" onclick="endTest()">
+            End Test
+        </button>
+    </div>
+
+</div>
+
+            <div class="question" id="question">
+                Loading question...
+            </div>
+
+            <div id="options"></div>
+
+            <div class="buttons">
+
+                <button id="prevBtn" onclick="previousQuestion()">
+                    Previous
+                </button>
+
+                <button id="nextBtn" onclick="nextQuestion()">
+                    Next
+                </button>
+
+                <button id="submitBtn" onclick="submitQuiz()">
+                    Submit Test
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div class="result" id="result">
+
+            <h2>Test Completed!</h2>
+            
+            <p id="studentResult"></p>
+
+            <p>Your Score</p>
+
+            <div class="score" id="score">
+                0 / 10
+            </div>
+
+            <p id="percentage"></p>
+        <div id="answerReview"></div>
+            <br>
+            
+            
+            
+
+            <button id="restartBtn" onclick="restartQuiz()">
+                Restart Test
+            </button>
+            
+            <button id="pdfBtn" onclick="downloadPDF()">Download Result PDF</button>
+            
+            
+            <button type="button" onclick="toggleAnswers()" id="showAnswersBtn">
+    Show Answers
+</button>
+
+<button type="button" onclick="downloadAnswerSheet()" id="downloadAnswerBtn">
+    Download Answer Sheet
+</button>
+
+        </div>
+
+    </div> 
+
+
+<script>
+
+    // =========================
+    // QUESTIONS
+    // =========================
+
+const questions = [
+
+    
+    {
+        question: 'Which of the following is an acid?',
+        options: ['Soap solution', 'Lemon juice', 'Baking soda solution', 'Lime water'],
+        answer: 1
+    },
+
+    {
+        question: 'A substance that changes colour in an acidic or basic solution is called:',
+        options: ['Salt', 'Indicator', 'Metal', 'Solvent'],
+        answer: 1
+    },
+
+    {
+        question: 'Blue litmus paper turns ______ in an acidic solution.',
+        options: ['Blue', 'Green', 'Red', 'Yellow'],
+        answer: 2
+    },
+
+    {
+        question: 'Which of the following is a natural indicator?',
+        options: ['Turmeric', 'Plastic', 'Copper', 'Glass'],
+        answer: 0
+    },
+
+    {
+        question: 'A solution that is neither acidic nor basic is called:',
+        options: ['Acidic', 'Basic', 'Neutral', 'Salty'],
+        answer: 2
+    },
+
+    {
+        question: 'Which substance is generally basic in nature?',
+        options: ['Vinegar', 'Lemon juice', 'Soap solution', 'Orange juice'],
+        answer: 2
+    },
+
+    {
+        question: 'The reaction between an acid and a base is called:',
+        options: ['Evaporation', 'Neutralisation', 'Condensation', 'Filtration'],
+        answer: 1
+    },
+
+    {
+        question: 'The device used to produce electricity in a simple circuit is:',
+        options: ['Switch', 'Cell', 'Bulb', 'Wire'],
+        answer: 1
+    },
+
+    {
+        question: 'Which material is a good conductor of electricity?',
+        options: ['Rubber', 'Plastic', 'Copper', 'Wood'],
+        answer: 2
+    },
+
+    {
+        question: 'An electric circuit must be ______ for current to flow.',
+        options: ['Open', 'Closed', 'Broken', 'Wet'],
+        answer: 1
+    },
+
+    {
+        question: 'Which component is used to open or close an electric circuit?',
+        options: ['Cell', 'Bulb', 'Switch', 'Wire'],
+        answer: 2
+    },
+
+    {
+        question: 'Which of the following is an insulator?',
+        options: ['Copper', 'Aluminium', 'Iron', 'Rubber'],
+        answer: 3
+    },
+
+    {
+        question: 'The positive terminal of a cell is marked with:',
+        options: ['−', '+', '×', '='],
+        answer: 1
+    },
+
+    {
+        question: 'When two or more cells are connected together, they form a:',
+        options: ['Battery', 'Bulb', 'Switch', 'Magnet'],
+        answer: 0
+    },
+
+    {
+        question: 'Which of the following is a metal?',
+        options: ['Sulphur', 'Carbon', 'Iron', 'Oxygen'],
+        answer: 2
+    },
+
+    {
+        question: 'Metals generally have a ______ surface when freshly cut.',
+        options: ['Dull', 'Shiny', 'Rough', 'Transparent'],
+        answer: 1
+    },
+
+    {
+        question: 'The property by which metals can be beaten into thin sheets is called:',
+        options: ['Ductility', 'Malleability', 'Hardness', 'Sonority'],
+        answer: 1
+    },
+
+    {
+        question: 'The property by which metals can be drawn into wires is called:',
+        options: ['Malleability', 'Ductility', 'Lustre', 'Brittleness'],
+        answer: 1
+    },
+
+    {
+        question: 'Which of the following is a non-metal?',
+        options: ['Copper', 'Aluminium', 'Sulphur', 'Iron'],
+        answer: 2
+    },
+
+    {
+        question: 'Which metal is commonly used for making electrical wires?',
+        options: ['Copper', 'Sodium', 'Calcium', 'Mercury'],
+        answer: 0
+    },
+
+    {
+        question: 'Which of the following is generally sonorous?',
+        options: ['Metals', 'Non-metals', 'Rubber', 'Wood'],
+        answer: 0
+    },
+
+    {
+        question: 'The period of life when the body undergoes changes leading towards adulthood is called:',
+        options: ['Infancy', 'Adolescence', 'Old age', 'Childhood'],
+        answer: 1
+    },
+
+    {
+        question: 'Adolescence generally begins around the age of:',
+        options: ['2 years', '5 years', '11 years', '30 years'],
+        answer: 2
+    },
+
+    {
+        question: 'The stage when the reproductive organs become mature is called:',
+        options: ['Puberty', 'Infancy', 'Digestion', 'Respiration'],
+        answer: 0
+    },
+
+    {
+        question: 'Which hormone is mainly responsible for the development of male secondary sexual characteristics?',
+        options: ['Insulin', 'Testosterone', 'Thyroxine', 'Adrenaline'],
+        answer: 1
+    },
+
+    {
+        question: 'Which hormone is mainly associated with female secondary sexual characteristics?',
+        options: ['Estrogen', 'Testosterone', 'Insulin', 'Growth hormone'],
+        answer: 0
+    },
+
+    {
+        question: 'A balanced diet during adolescence should contain:',
+        options: ['Only carbohydrates', 'Only fats', 'All essential nutrients', 'Only proteins'],
+        answer: 2
+    },
+
+    {
+        question: 'The degree of hotness or coldness of an object is called:',
+        options: ['Heat', 'Temperature', 'Energy', 'Pressure'],
+        answer: 1
+    },
+
+    {
+        question: 'The instrument used to measure temperature is a:',
+        options: ['Barometer', 'Thermometer', 'Speedometer', 'Ammeter'],
+        answer: 1
+    },
+
+    {
+        question: 'Normal human body temperature is approximately:',
+        options: ['25°C', '30°C', '37°C', '50°C'],
+        answer: 2
+    },
+
+    {
+        question: 'Heat generally flows from:',
+        options: ['Colder object to hotter object', 'Hotter object to colder object', 'Smaller object to larger object', 'Heavier object to lighter object'],
+        answer: 1
+    },
+
+    {
+        question: 'Which material is a good conductor of heat?',
+        options: ['Copper', 'Wood', 'Plastic', 'Rubber'],
+        answer: 0
+    },
+
+    {
+        question: 'Which of the following is a poor conductor of heat?',
+        options: ['Iron', 'Copper', 'Aluminium', 'Wood'],
+        answer: 3
+    },
+
+    {
+        question: 'Woollen clothes keep us warm because wool:',
+        options: ['Produces heat', 'Traps air', 'Absorbs water', 'Produces electricity'],
+        answer: 1
+    },
+
+    {
+        question: 'The SI unit of length is:',
+        options: ['Centimetre', 'Kilometre', 'Metre', 'Millimetre'],
+        answer: 2
+    },
+
+    {
+        question: 'Which instrument is commonly used to measure length?',
+        options: ['Thermometer', 'Ruler', 'Stopwatch', 'Balance'],
+        answer: 1
+    },
+
+    {
+        question: 'The distance travelled by an object in a given time is related to its:',
+        options: ['Temperature', 'Speed', 'Mass', 'Volume'],
+        answer: 1
+    },
+
+    {
+        question: 'The SI unit of time is:',
+        options: ['Minute', 'Hour', 'Second', 'Day'],
+        answer: 2
+    },
+
+    {
+        question: 'A body is said to be in motion when its position:',
+        options: ['Never changes', 'Changes with time', 'Remains fixed', 'Becomes heavier'],
+        answer: 1
+    },
+
+    {
+        question: 'Which of the following is an example of periodic motion?',
+        options: ['A car moving on a straight road', 'A pendulum swinging to and fro', 'A person standing still', 'A book lying on a table'],
+        answer: 1
+    },
+
+    {
+        question: 'The motion of a simple pendulum is:',
+        options: ['Circular motion', 'Periodic motion', 'Random motion', 'Linear motion only'],
+        answer: 1
+    },
+
+    {
+        question: 'The time taken by a pendulum to complete one oscillation is called its:',
+        options: ['Speed', 'Frequency', 'Time period', 'Distance'],
+        answer: 2
+    },
+
+    {
+        question: 'Which process provides energy to animals from food?',
+        options: ['Respiration', 'Excretion', 'Movement', 'Reproduction'],
+        answer: 0
+    },
+
+    {
+        question: 'Digestion of food begins in the:',
+        options: ['Stomach', 'Mouth', 'Small intestine', 'Large intestine'],
+        answer: 1
+    },
+
+    {
+        question: 'Which organ produces bile?',
+        options: ['Stomach', 'Liver', 'Pancreas', 'Kidney'],
+        answer: 1
+    },
+
+    {
+        question: 'Most absorption of digested food takes place in the:',
+        options: ['Mouth', 'Stomach', 'Small intestine', 'Large intestine'],
+        answer: 2
+    },
+
+    {
+        question: 'The process of taking oxygen into the body and releasing carbon dioxide is associated with:',
+        options: ['Respiration', 'Digestion', 'Excretion', 'Circulation'],
+        answer: 0
+    },
+
+    {
+        question: 'Which organ pumps blood throughout the body?',
+        options: ['Lungs', 'Kidney', 'Heart', 'Liver'],
+        answer: 2
+    },
+
+    {
+        question: 'Which organ helps remove wastes from the blood?',
+        options: ['Kidney', 'Stomach', 'Heart', 'Brain'],
+        answer: 0
+    },
+
+    {
+        question: 'The removal of waste products from the body is called:',
+        options: ['Digestion', 'Respiration', 'Excretion', 'Circulation'],
+        answer: 2
+    }
+
+];
+
+
+    // =========================
+    // VARIABLES
+    // =========================
+
+    let currentQuestion = 0;
+
+    let selectedAnswers = new Array(questions.length).fill(null);
+    
+    let studentClass = "";
+let studentSubject = "";
+    
+    function getStudentName() {
+    const name = document.getElementById("studentName").value.trim();
+
+    if (name === "") {
+        alert("Please enter the student's name.");
+        return false;
+    }
+
+    return true;
+}
+
+function startTest() {
+
+    const name = document.getElementById("studentNameStart").value.trim();
+    const selectedClass = document.getElementById("classSelect").value;
+    const selectedSubject = document.getElementById("subjectSelect").value;
+
+studentClass = selectedClass;
+studentSubject = selectedSubject;
+
+    if (name === "") {
+        alert("Please enter the student's name.");
+        return;
+    }
+
+    if (selectedClass === "") {
+        alert("Please select a class.");
+        return;
+    }
+
+    if (selectedSubject === "") {
+        alert("Please select a subject.");
+        return;
+    }
+
+    // Save student information
+    document.getElementById("studentName").value = name;
+
+    // Hide the start screen
+    document.getElementById("startScreen").style.display = "none";
+
+    // Show the quiz
+    document.getElementById("quizBox").style.display = "block";
+
+    // Start from Question 1
+    currentQuestion = 0;
+    selectedAnswers = new Array(questions.length).fill(null);
+
+    loadQuestion();
+}
+
+
+    // =========================
+    // LOAD QUESTION
+    // =========================
+
+    function loadQuestion() {
+
+        const q = questions[currentQuestion];
+
+        document.getElementById("progress").innerText =
+            "Question " + (currentQuestion + 1) +
+            " of " + questions.length;
+
+        document.getElementById("question").innerText =
+            q.question;
+
+        const optionsDiv =
+            document.getElementById("options");
+
+        optionsDiv.innerHTML = "";
+
+
+        q.options.forEach((option, index) => {
+
+            const label = document.createElement("label");
+
+            label.className = "option";
+
+            label.innerHTML = `
+                <input
+                    type="radio"
+                    name="answer"
+                    value="${index}"
+                    ${selectedAnswers[currentQuestion] === index ? "checked" : ""}
+                    onchange="selectAnswer(${index})"
+                >
+                ${option}
+            `;
+
+            optionsDiv.appendChild(label);
+
+        });
+
+
+        // Previous button
+
+        if (currentQuestion === 0) {
+            document.getElementById("prevBtn").style.visibility =
+                "hidden";
+        } else {
+            document.getElementById("prevBtn").style.visibility =
+                "visible";
+        }
+
+
+        // Next / Submit button
+
+        if (currentQuestion === questions.length - 1) {
+
+            document.getElementById("nextBtn").style.display =
+                "none";
+
+            document.getElementById("submitBtn").style.display =
+                "block";
+
+        } else {
+
+            document.getElementById("nextBtn").style.display =
+                "block";
+
+            document.getElementById("submitBtn").style.display =
+                "none";
+        }
+
+    }
+
+
+    // =========================
+    // SELECT ANSWER
+    // =========================
+
+    function selectAnswer(answer) {
+
+        selectedAnswers[currentQuestion] = answer;
+
+    }
+
+
+    // =========================
+    // NEXT QUESTION
+    // =========================
+
+    function nextQuestion() {
+
+        if (currentQuestion < questions.length - 1) {
+
+            currentQuestion++;
+
+            loadQuestion();
+
+        }
+
+    }
+
+
+    // =========================
+    // PREVIOUS QUESTION
+    // =========================
+
+    function previousQuestion() {
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            loadQuestion();
+
+        }
+
+    }
+
+
+    // =========================
+    // SUBMIT QUIZ
+    // =========================
+
+    function submitQuiz() {
+    
+    if (!getStudentName()) {
+    return;
+}
+
+    let score = 0;
+
+    let reviewHTML = "";
+
+    questions.forEach((question, index) => {
+
+        const selected = selectedAnswers[index];
+
+        if (selected === question.answer) {
+            score++;
+        }
+
+        let selectedText =
+            selected === null
+            ? "Not Answered"
+            : question.options[selected];
+
+        let correctText =
+            question.options[question.answer];
+
+        let status =
+            selected === question.answer
+            ? "✅ Correct"
+            : "❌ Wrong";
+
+        reviewHTML += `
+            <div class="review-question">
+
+                <h3>Q${index + 1}. ${question.question}</h3>
+
+                <p>
+                    <strong>Your Answer:</strong>
+                    ${selectedText}
+                </p>
+
+                <p>
+                    <strong>Correct Answer:</strong>
+                    ${correctText}
+                </p>
+
+                <p class="status">
+                    ${status}
+                </p>
+
+            </div>
+        `;
+    });
+
+
+    const percentage =
+        Math.round((score / questions.length) * 100);
+
+
+    document.getElementById("quizBox").style.display =
+        "none";
+        
+        const studentName = document.getElementById("studentName").value.trim();
+
+document.getElementById("studentResult").innerText =
+    "Student Name: " + studentName;
+
+    document.getElementById("result").style.display =
+        "block";
+
+
+    document.getElementById("score").innerText =
+        score + " / " + questions.length;
+
+
+    document.getElementById("percentage").innerText =
+        "Percentage: " + percentage + "%";
+        
+        
+
+
+    document.getElementById("answerReview").innerHTML =
+        reviewHTML;
+}
+
+
+    // =========================
+    // RESTART QUIZ
+    // =========================
+
+function endTest() {
+
+if (!getStudentName()) {
+    return;
+}
+
+    let confirmEnd = confirm(
+        "Are you sure you want to end the test?"
+    );
+
+    if (!confirmEnd) {
+        return;
+    }
+
+    // Calculate result
+    let score = 0;
+    let attempted = 0;
+
+    questions.forEach((question, index) => {
+
+        if (selectedAnswers[index] !== null) {
+            attempted++;
+        }
+
+        if (
+            question.answer !== null &&
+            selectedAnswers[index] === question.answer
+        ) {
+            score++;
+        }
+    });
+
+    let percentage = Math.round(
+        (score / questions.length) * 100
+    );
+
+    // Hide quiz
+    document.getElementById("quizBox").style.display = "none";
+    
+    const studentName = document.getElementById("studentName").value.trim();
+
+document.getElementById("studentResult").innerText =
+    "Student Name: " + studentName;
+
+    // Show result
+    document.getElementById("result").style.display = "block";
+
+    // Show score
+    document.getElementById("score").innerText =
+        score + " / " + questions.length;
+
+    // Show percentage and attempted questions
+    document.getElementById("percentage").innerText =
+        "Percentage: " + percentage + "% | Attempted: " +
+        attempted + " / " + questions.length;
+
+    // Show answer review
+    
+}
+
+function showAnswerReview() {
+
+    let reviewHTML = "";
+
+    questions.forEach((question, index) => {
+
+        const selected = selectedAnswers[index];
+
+        const yourAnswer =
+            selected === null
+                ? "Not Answered"
+                : question.options[selected];
+
+        const correctAnswer =
+            question.options[question.answer];
+
+        let status;
+
+        if (selected === null) {
+            status = "⚪ Not Answered";
+        } 
+        else if (selected === question.answer) {
+            status = "✅ Correct";
+        } 
+        else {
+            status = "❌ Wrong";
+        }
+
+        reviewHTML += `
+            <div class="review-question">
+
+                <h3>Q${index + 1}. ${question.question}</h3>
+
+                <p>
+                    <strong>Your Answer:</strong>
+                    ${yourAnswer}
+                </p>
+
+                <p>
+                    <strong>Correct Answer:</strong>
+                    ${correctAnswer}
+                </p>
+
+                <p class="status">
+                    ${status}
+                </p>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("answerReview").innerHTML = reviewHTML;
+}
+    
+    
+    function toggleAnswers() {
+
+    const answerReview = document.getElementById("answerReview");
+    const button = document.getElementById("showAnswersBtn");
+
+    if (answerReview.style.display === "none" ||
+        answerReview.style.display === "") {
+
+        showAnswerReview();
+
+        answerReview.style.display = "block";
+        button.innerText = "Hide Answers";
+
+    } else {
+
+        answerReview.style.display = "none";
+        button.innerText = "Show Answers";
+    }
+}
+
+   function restartQuiz() {
+    currentQuestion = 0;
+
+    selectedAnswers = new Array(questions.length).fill(null);
+
+    document.getElementById("result").style.display = "none";
+    document.getElementById("quizBox").style.display = "block";
+
+    loadQuestion();
+}
+    
+//==================================
+//RESTART
+//==================================
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+
+    selectedAnswers =
+        new Array(questions.length).fill(null);
+
+    document.getElementById("result").style.display =
+        "none";
+
+    document.getElementById("quizBox").style.display =
+        "block";
+
+    loadQuestion();
+}
+
+    // Start quiz
+
+    loadQuestion();
+    
+//===================================
+//CLASS AND SUBJECT
+//===================================
+
+const className = "Class 8";
+const subjectName = "Science";
+
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+
+    const studentName = document.getElementById("studentName").value.trim();
+    const totalQuestions = questions.length;
+
+    let correct = 0;
+    let attempted = 0;
+
+    questions.forEach((q, index) => {
+        if (selectedAnswers[index] !== null) {
+            attempted++;
+
+            if (selectedAnswers[index] === q.answer) {
+                correct++;
+            }
+        }
+    });
+
+    const wrong = attempted - correct;
+    const unattempted = totalQuestions - attempted;
+    const percentage = Math.round((correct / totalQuestions) * 100);
+
+    let grade;
+    let gradeText;
+
+    if (percentage >= 90) {
+        grade = "A";
+        gradeText = "Superior";
+    } else if (percentage >= 75) {
+        grade = "B";
+        gradeText = "Above Average";
+    } else if (percentage >= 50) {
+        grade = "C";
+        gradeText = "Average";
+    } else {
+        grade = "D";
+        gradeText = "Below Average";
+    }
+
+    const date = new Date().toLocaleDateString();
+
+    const doc = new jsPDF();
+
+    // ------------------------------------------------
+    // PAGE BORDER
+    // ------------------------------------------------
+
+    doc.setFillColor(245, 250, 255);
+    doc.rect(0, 0, 210, 297, "F");
+
+    doc.setDrawColor(20, 105, 190);
+    doc.setLineWidth(2);
+    doc.rect(5, 5, 200, 287);
+
+    // ------------------------------------------------
+    // HEADER
+    // ------------------------------------------------
+
+    doc.setFillColor(20, 105, 190);
+    doc.roundedRect(10, 10, 190, 42, 5, 5, "F");
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(24);
+    doc.text("QUIZ REPORT", 105, 28, { align: "center" });
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("Learn  •  Practice  •  Improve", 105, 39, {
+        align: "center"
+    });
+
+    // ------------------------------------------------
+    // STUDENT INFORMATION
+    // ------------------------------------------------
+
+    doc.setFillColor(225, 242, 255);
+    doc.setDrawColor(80, 170, 230);
+    doc.roundedRect(10, 58, 190, 42, 4, 4, "FD");
+
+    doc.setTextColor(20, 50, 90);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+
+    doc.text("Student Name:", 18, 70);
+    doc.text("Class:", 18, 82);
+    doc.text("Subject:", 18, 94);
+
+    doc.setFont("helvetica", "normal");
+
+    doc.text(studentName || "Student", 55, 70);
+    doc.text(studentClass || "-", 55, 82);
+    doc.text(studentSubject || "-", 55, 94);
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Date:", 135, 70);
+
+    doc.setFont("helvetica", "normal");
+    doc.text(date, 158, 70);
+
+    // ------------------------------------------------
+    // RESULT TABLE
+    // ------------------------------------------------
+
+    doc.setFillColor(20, 105, 190);
+    doc.roundedRect(10, 108, 120, 88, 4, 4, "F");
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(15);
+    doc.text("RESULT", 70, 120, { align: "center" });
+
+    const rows = [
+        ["Total Questions", totalQuestions],
+        ["Attempted", attempted],
+        ["Correct Answer", correct],
+        ["Wrong Answer", wrong],
+        ["Unattempted", unattempted],
+        ["Score", correct + " / " + totalQuestions],
+        ["Percentage", percentage + "%"],
+        ["Grade", grade]
+    ];
+
+    let y = 131;
+
+    rows.forEach((row, index) => {
+
+        if (index % 2 === 0) {
+            doc.setFillColor(232, 244, 255);
+        } else {
+            doc.setFillColor(248, 252, 255);
+        }
+
+        doc.rect(11, y - 6, 118, 8, "F");
+
+        doc.setTextColor(20, 40, 60);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+
+        doc.text(row[0], 17, y);
+
+        doc.setFont("helvetica", "bold");
+        doc.text(String(row[1]), 105, y);
+
+        y += 10;
+    });
+
+    // ------------------------------------------------
+    // GRADE BOX
+    // ------------------------------------------------
+
+    doc.setFillColor(255, 249, 225);
+    doc.setDrawColor(245, 190, 40);
+    doc.roundedRect(137, 108, 63, 88, 4, 4, "FD");
+
+    doc.setTextColor(20, 50, 90);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text("GRADE", 168.5, 120, { align: "center" });
+
+    // Grade circle
+    doc.setFillColor(245, 180, 20);
+    doc.circle(168.5, 140, 15, "F");
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.text(grade, 168.5, 147, { align: "center" });
+
+    doc.setTextColor(20, 50, 90);
+    doc.setFontSize(9);
+    doc.text(gradeText, 168.5, 163, { align: "center" });
+
+    // Percentage
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text(percentage + "%", 168.5, 181, {
+        align: "center"
+    });
+
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text("Your Score", 168.5, 189, {
+        align: "center"
+    });
+
+    // ------------------------------------------------
+    // GRADING SYSTEM
+    // ------------------------------------------------
+
+    doc.setFillColor(242, 237, 255);
+    doc.setDrawColor(150, 120, 220);
+    doc.roundedRect(10, 202, 190, 30, 4, 4, "FD");
+
+    doc.setTextColor(80, 55, 150);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text("GRADING SYSTEM", 18, 212);
+
+    doc.setFontSize(8);
+    doc.setTextColor(20, 50, 90);
+
+    doc.text("A", 20, 222);
+    doc.text("90–100%  Superior", 27, 222);
+
+    doc.text("B", 75, 222);
+    doc.text("75–89%  Above Average", 82, 222);
+
+    doc.text("C", 135, 222);
+    doc.text("50–74%  Average", 142, 222);
+
+    doc.text("D", 20, 228);
+    doc.text("Below 50%  Below Average", 27, 228);
+
+    // ------------------------------------------------
+    // REMARKS
+    // ------------------------------------------------
+
+    doc.setFillColor(232, 250, 242);
+    doc.setDrawColor(70, 180, 130);
+    doc.roundedRect(10, 238, 190, 25, 4, 4, "FD");
+
+    doc.setTextColor(25, 110, 75);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text("REMARKS", 18, 248);
+
+    doc.setTextColor(30, 60, 70);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+
+    let remark;
+
+    if (percentage >= 90) {
+        remark = "Excellent performance! Keep up the great work.";
+    } else if (percentage >= 75) {
+        remark = "Good performance! Keep working towards a higher grade.";
+    } else if (percentage >= 50) {
+        remark = "Good effort. More practice can improve your result.";
+    } else {
+        remark = "Keep practicing and focus on improving your fundamentals.";
+    }
+
+    doc.text(remark, 18, 256);
+
+    // ------------------------------------------------
+    // SIGNATURES
+    // ------------------------------------------------
+
+    doc.setDrawColor(40, 70, 110);
+
+    doc.line(25, 278, 75, 278);
+    doc.line(135, 278, 185, 278);
+
+    doc.setTextColor(20, 40, 70);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+
+    doc.text("Teacher", 50, 284, { align: "center" });
+    doc.text("Parents", 160, 284, { align: "center" });
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+
+    doc.text("Signature", 50, 289, { align: "center" });
+    doc.text("Signature", 160, 289, { align: "center" });
+
+    // ------------------------------------------------
+    // SAVE PDF
+    // ------------------------------------------------
+
+    const safeName = studentName
+        ? studentName.replace(/\s+/g, "_")
+        : "Student";
+
+    const fileName =
+        safeName + "_" +
+        (studentSubject || "Quiz") +
+        "_Report.pdf";
+
+    doc.save(fileName);
+}
+
+function downloadAnswerSheet() {
+
+    const { jsPDF } = window.jspdf;
+
+    const studentName =
+        document.getElementById("studentName").value.trim();
+
+    const doc = new jsPDF();
+
+    let y = 20;
+
+    // Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+
+    doc.text(
+        studentSubject + " - Answer Sheet",
+        105,
+        y,
+        { align: "center" }
+    );
+
+    y += 12;
+
+    // Student information
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+
+    doc.text("Student Name: " + studentName, 15, y);
+    y += 7;
+
+    doc.text("Class: " + studentClass, 15, y);
+    y += 7;
+
+    doc.text("Subject: " + studentSubject, 15, y);
+    y += 12;
+
+    // Line
+    doc.line(15, y, 195, y);
+    y += 10;
+
+    // Questions
+    questions.forEach((question, index) => {
+
+        const selected = selectedAnswers[index];
+
+        const yourAnswer =
+            selected === null
+                ? "Not Answered"
+                : question.options[selected];
+
+        const correctAnswer =
+            question.options[question.answer];
+
+        // Question
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10);
+
+        const questionText =
+            "Q" + (index + 1) + ". " + question.question;
+
+        const questionLines =
+            doc.splitTextToSize(questionText, 175);
+
+        // Check page space
+        if (y + questionLines.length * 5 + 25 > 285) {
+            doc.addPage();
+            y = 20;
+        }
+
+        doc.text(questionLines, 15, y);
+
+        y += questionLines.length * 5 + 5;
+
+        // Your answer
+        doc.setFont("helvetica", "normal");
+
+        const yourText =
+            "Your Answer: " + yourAnswer;
+
+        const yourLines =
+            doc.splitTextToSize(yourText, 175);
+
+        doc.text(yourLines, 20, y);
+
+        y += yourLines.length * 5 + 4;
+
+        // Correct answer
+        const correctText =
+            "Correct Answer: " + correctAnswer;
+
+        const correctLines =
+            doc.splitTextToSize(correctText, 175);
+
+        doc.text(correctLines, 20, y);
+
+        y += correctLines.length * 5 + 8;
+    });
+
+    // Save PDF
+    const safeName = studentName
+        ? studentName.replace(/\s+/g, "_")
+        : "Student";
+
+    const fileName =
+        safeName + "_Answer_Sheet.pdf";
+
+    doc.save(fileName);
+}
+</script>
+         <!-- Footer -->
+          <footer>
+
+        <p>
+            © Created by SURAJ DWIWEDI.
+        </p>
+
+    </footer>
+
+</body>
+</html>
+</body>
+</html>
