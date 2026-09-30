@@ -163,6 +163,28 @@
             .option {
                 font-size: 15px;
             }
+            
+            .top-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+#endTestBtn {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+            
         }
         
         .student-info {
@@ -250,8 +272,9 @@
 
 .top-bar {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
     gap: 10px;
 }
 
@@ -347,6 +370,10 @@
         <label for="classSelect">Class</label>
         <select id="classSelect">
             <option value="">Select Class</option>
+            
+            <option value="class 5">
+                
+            </option>
             <option value="Class 6">Class 6</option>
             <option value="Class 7">Class 7</option>
             <option value="Class 8">Class 8</option>
@@ -383,19 +410,21 @@
         <div class="quiz-box" id="quizBox">
 
     <div class="top-bar">
-        
-        <div class="student-info">
-    <label for="studentName">Student Name:</label>
-    <input type="text" id="studentName" placeholder="Enter your name">
-</div>
 
-<div class="progress" id="progress">Question 1 of 50</div>
+    <div class="student-info">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" placeholder="Enter your name">
+    </div>
+
+    <div class="progress-row">
+        <div class="progress" id="progress">Question 1 of 50</div>
 
         <button type="button" id="endTestBtn" onclick="endTest()">
-    End Test
-</button>
-
+            End Test
+        </button>
     </div>
+
+</div>
 
             <div class="question" id="question">
                 Loading question...
@@ -458,383 +487,305 @@
 
 const questions = [
 
-    // =========================
-    // NUMBER SYSTEM
-    // =========================
-
+    
     {
-        question: "Which of the following is an integer?",
-        options: ["2.5", "−7", "3/4", "0.5"],
+        question: 'Which of the following is an acid?',
+        options: ['Soap solution', 'Lemon juice', 'Baking soda solution', 'Lime water'],
         answer: 1
     },
 
     {
-        question: "The additive identity is:",
-        options: ["1", "−1", "0", "10"],
+        question: 'A substance that changes colour in an acidic or basic solution is called:',
+        options: ['Salt', 'Indicator', 'Metal', 'Solvent'],
+        answer: 1
+    },
+
+    {
+        question: 'Blue litmus paper turns ______ in an acidic solution.',
+        options: ['Blue', 'Green', 'Red', 'Yellow'],
         answer: 2
     },
 
     {
-        question: "The successor of −6 is:",
-        options: ["−7", "−5", "5", "6"],
-        answer: 1
-    },
-
-    {
-        question: "The value of (−8) + 5 is:",
-        options: ["−13", "−3", "3", "13"],
-        answer: 1
-    },
-
-    {
-        question: "The value of 7 − (−3) is:",
-        options: ["4", "−4", "10", "−10"],
-        answer: 2
-    },
-
-    {
-        question: "Which number is smaller?",
-        options: ["−2", "−5", "0", "3"],
-        answer: 1
-    },
-
-    {
-        question: "The product of (−4) × (−6) is:",
-        options: ["−24", "10", "24", "−10"],
-        answer: 2
-    },
-
-    {
-        question: "Which of the following is the greatest number?",
-        options: ["−8", "−3", "−10", "−5"],
-        answer: 1
-    },
-
-
-    // =========================
-    // DECIMALS
-    // =========================
-
-    {
-        question: "0.5 is equal to:",
-        options: ["1/5", "1/2", "2/5", "5/2"],
-        answer: 1
-    },
-
-    {
-        question: "3.45 + 2.5 =",
-        options: ["5.95", "5.05", "6.05", "6.95"],
+        question: 'Which of the following is a natural indicator?',
+        options: ['Turmeric', 'Plastic', 'Copper', 'Glass'],
         answer: 0
     },
 
     {
-        question: "7.8 − 3.25 =",
-        options: ["4.45", "4.55", "5.55", "5.45"],
-        answer: 1
-    },
-
-    {
-        question: "2.5 × 4 =",
-        options: ["8", "10", "12", "6"],
-        answer: 1
-    },
-
-    {
-        question: "6.4 ÷ 2 =",
-        options: ["2.2", "3.2", "4.2", "3.4"],
-        answer: 1
-    },
-
-    {
-        question: "5.67 × 100 =",
-        options: ["56.7", "567", "5670", "5.67"],
-        answer: 1
-    },
-
-    {
-        question: "45.6 ÷ 10 =",
-        options: ["456", "4.56", "0.456", "45.06"],
-        answer: 1
-    },
-
-    {
-        question: "Which is the smallest decimal?",
-        options: ["0.7", "0.07", "0.77", "0.17"],
-        answer: 1
-    },
-
-
-    // =========================
-    // ARITHMETIC EXPRESSIONS
-    // =========================
-
-    {
-        question: "5 + 3 × 2 =",
-        options: ["16", "11", "13", "10"],
-        answer: 1
-    },
-
-    {
-        question: "20 ÷ 4 + 6 =",
-        options: ["11", "10", "14", "8"],
-        answer: 0
-    },
-
-    {
-        question: "18 − (5 + 3) =",
-        options: ["10", "11", "12", "16"],
-        answer: 0
-    },
-
-    {
-        question: "4 × (6 + 2) =",
-        options: ["26", "28", "32", "24"],
+        question: 'A solution that is neither acidic nor basic is called:',
+        options: ['Acidic', 'Basic', 'Neutral', 'Salty'],
         answer: 2
     },
 
     {
-        question: "30 ÷ (5 + 1) =",
-        options: ["5", "6", "10", "4"],
-        answer: 0
-    },
-
-    {
-        question: "According to BODMAS, which operation is performed first?",
-        options: ["Addition", "Subtraction", "Brackets", "Division"],
+        question: 'Which substance is generally basic in nature?',
+        options: ['Vinegar', 'Lemon juice', 'Soap solution', 'Orange juice'],
         answer: 2
     },
 
     {
-        question: "12 + 8 ÷ 4 =",
-        options: ["5", "20", "14", "8"],
+        question: 'The reaction between an acid and a base is called:',
+        options: ['Evaporation', 'Neutralisation', 'Condensation', 'Filtration'],
+        answer: 1
+    },
+
+    {
+        question: 'The device used to produce electricity in a simple circuit is:',
+        options: ['Switch', 'Cell', 'Bulb', 'Wire'],
+        answer: 1
+    },
+
+    {
+        question: 'Which material is a good conductor of electricity?',
+        options: ['Rubber', 'Plastic', 'Copper', 'Wood'],
         answer: 2
     },
 
     {
-        question: "7 × 3 − 5 =",
-        options: ["16", "14", "21", "26"],
-        answer: 0
+        question: 'An electric circuit must be ______ for current to flow.',
+        options: ['Open', 'Closed', 'Broken', 'Wet'],
+        answer: 1
     },
 
-
-    // =========================
-    // ALGEBRAIC EXPRESSIONS
-    // =========================
-
     {
-        question: "Which of the following is an algebraic expression?",
-        options: ["15 + 5", "20 − 4", "3x + 7", "12 ÷ 3"],
+        question: 'Which component is used to open or close an electric circuit?',
+        options: ['Cell', 'Bulb', 'Switch', 'Wire'],
         answer: 2
     },
 
     {
-        question: "In 8x + 5, the coefficient of x is:",
-        options: ["5", "8", "x", "13"],
-        answer: 1
-    },
-
-    {
-        question: "In 7a + 9, the constant term is:",
-        options: ["7", "a", "9", "16"],
-        answer: 2
-    },
-
-    {
-        question: "Which are like terms?",
-        options: [
-            "3x and 5y",
-            "4a and 7a",
-            "2x and 2y",
-            "5p and 5q"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "3x + 5x =",
-        options: ["8", "8x", "15x", "2x"],
-        answer: 1
-    },
-
-    {
-        question: "9a − 4a =",
-        options: ["5", "13a", "5a", "36a"],
-        answer: 2
-    },
-
-    {
-        question: "If x = 4, the value of 3x + 2 is:",
-        options: ["10", "12", "14", "16"],
-        answer: 2
-    },
-
-    {
-        question: "The number of terms in 5x + 3y + 7 is:",
-        options: ["2", "3", "4", "5"],
-        answer: 1
-    },
-
-
-    // =========================
-    // PARALLEL AND INTERSECTING LINES
-    // =========================
-
-    {
-        question: "Two lines that never meet are called:",
-        options: [
-            "Intersecting lines",
-            "Parallel lines",
-            "Perpendicular lines",
-            "Curved lines"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "Two lines meeting at one point are called:",
-        options: [
-            "Parallel lines",
-            "Intersecting lines",
-            "Equal lines",
-            "Horizontal lines"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "Perpendicular lines form an angle of:",
-        options: ["45°", "60°", "90°", "180°"],
-        answer: 2
-    },
-
-    {
-        question: "The point where two lines meet is called the:",
-        options: [
-            "Vertex",
-            "Intersection point",
-            "Centre",
-            "Midpoint"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "Two lines that intersect at 90° are called:",
-        options: [
-            "Parallel",
-            "Perpendicular",
-            "Horizontal",
-            "Vertical"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "How many lines can be drawn through two distinct points?",
-        options: ["One", "Two", "Three", "Infinitely many"],
-        answer: 0
-    },
-
-
-    // =========================
-    // TRIANGLES
-    // =========================
-
-    {
-        question: "A triangle has:",
-        options: ["2 sides", "3 sides", "4 sides", "5 sides"],
-        answer: 1
-    },
-
-    {
-        question: "The sum of the three angles of a triangle is:",
-        options: ["90°", "180°", "270°", "360°"],
-        answer: 1
-    },
-
-    {
-        question: "A triangle with all three sides equal is called:",
-        options: [
-            "Scalene",
-            "Isosceles",
-            "Equilateral",
-            "Right-angled"
-        ],
-        answer: 2
-    },
-
-    {
-        question: "A triangle having two equal sides is called:",
-        options: [
-            "Scalene",
-            "Isosceles",
-            "Equilateral",
-            "Obtuse"
-        ],
-        answer: 1
-    },
-
-    {
-        question: "A triangle having no equal sides is called:",
-        options: [
-            "Equilateral",
-            "Isosceles",
-            "Scalene",
-            "Right-angled"
-        ],
-        answer: 2
-    },
-
-    {
-        question: "A triangle having one angle equal to 90° is called:",
-        options: [
-            "Acute triangle",
-            "Obtuse triangle",
-            "Right-angled triangle",
-            "Equilateral triangle"
-        ],
-        answer: 2
-    },
-
-    {
-        question: "If two angles of a triangle are 60° and 70°, the third angle is:",
-        options: ["40°", "50°", "60°", "70°"],
-        answer: 1
-    },
-
-
-    // =========================
-    // FRACTIONS
-    // =========================
-
-    {
-        question: "2/5 + 1/5 =",
-        options: ["3/5", "3/10", "2/10", "1/5"],
-        answer: 0
-    },
-
-    {
-        question: "3/4 − 1/4 =",
-        options: ["1/4", "2/4", "3/8", "1/2"],
+        question: 'Which of the following is an insulator?',
+        options: ['Copper', 'Aluminium', 'Iron', 'Rubber'],
         answer: 3
     },
 
     {
-        question: "2/3 × 3/4 =",
-        options: ["1/2", "2/7", "3/7", "5/12"],
-        answer: 0
-    },
-
-    {
-        question: "Which fraction is equivalent to 3/5?",
-        options: ["6/10", "5/6", "9/20", "3/10"],
-        answer: 0
-    },
-
-    {
-        question: "The reciprocal of 4/7 is:",
-        options: ["4/7", "7/4", "3/7", "7/3"],
+        question: 'The positive terminal of a cell is marked with:',
+        options: ['−', '+', '×', '='],
         answer: 1
+    },
+
+    {
+        question: 'When two or more cells are connected together, they form a:',
+        options: ['Battery', 'Bulb', 'Switch', 'Magnet'],
+        answer: 0
+    },
+
+    {
+        question: 'Which of the following is a metal?',
+        options: ['Sulphur', 'Carbon', 'Iron', 'Oxygen'],
+        answer: 2
+    },
+
+    {
+        question: 'Metals generally have a ______ surface when freshly cut.',
+        options: ['Dull', 'Shiny', 'Rough', 'Transparent'],
+        answer: 1
+    },
+
+    {
+        question: 'The property by which metals can be beaten into thin sheets is called:',
+        options: ['Ductility', 'Malleability', 'Hardness', 'Sonority'],
+        answer: 1
+    },
+
+    {
+        question: 'The property by which metals can be drawn into wires is called:',
+        options: ['Malleability', 'Ductility', 'Lustre', 'Brittleness'],
+        answer: 1
+    },
+
+    {
+        question: 'Which of the following is a non-metal?',
+        options: ['Copper', 'Aluminium', 'Sulphur', 'Iron'],
+        answer: 2
+    },
+
+    {
+        question: 'Which metal is commonly used for making electrical wires?',
+        options: ['Copper', 'Sodium', 'Calcium', 'Mercury'],
+        answer: 0
+    },
+
+    {
+        question: 'Which of the following is generally sonorous?',
+        options: ['Metals', 'Non-metals', 'Rubber', 'Wood'],
+        answer: 0
+    },
+
+    {
+        question: 'The period of life when the body undergoes changes leading towards adulthood is called:',
+        options: ['Infancy', 'Adolescence', 'Old age', 'Childhood'],
+        answer: 1
+    },
+
+    {
+        question: 'Adolescence generally begins around the age of:',
+        options: ['2 years', '5 years', '11 years', '30 years'],
+        answer: 2
+    },
+
+    {
+        question: 'The stage when the reproductive organs become mature is called:',
+        options: ['Puberty', 'Infancy', 'Digestion', 'Respiration'],
+        answer: 0
+    },
+
+    {
+        question: 'Which hormone is mainly responsible for the development of male secondary sexual characteristics?',
+        options: ['Insulin', 'Testosterone', 'Thyroxine', 'Adrenaline'],
+        answer: 1
+    },
+
+    {
+        question: 'Which hormone is mainly associated with female secondary sexual characteristics?',
+        options: ['Estrogen', 'Testosterone', 'Insulin', 'Growth hormone'],
+        answer: 0
+    },
+
+    {
+        question: 'A balanced diet during adolescence should contain:',
+        options: ['Only carbohydrates', 'Only fats', 'All essential nutrients', 'Only proteins'],
+        answer: 2
+    },
+
+    {
+        question: 'The degree of hotness or coldness of an object is called:',
+        options: ['Heat', 'Temperature', 'Energy', 'Pressure'],
+        answer: 1
+    },
+
+    {
+        question: 'The instrument used to measure temperature is a:',
+        options: ['Barometer', 'Thermometer', 'Speedometer', 'Ammeter'],
+        answer: 1
+    },
+
+    {
+        question: 'Normal human body temperature is approximately:',
+        options: ['25°C', '30°C', '37°C', '50°C'],
+        answer: 2
+    },
+
+    {
+        question: 'Heat generally flows from:',
+        options: ['Colder object to hotter object', 'Hotter object to colder object', 'Smaller object to larger object', 'Heavier object to lighter object'],
+        answer: 1
+    },
+
+    {
+        question: 'Which material is a good conductor of heat?',
+        options: ['Copper', 'Wood', 'Plastic', 'Rubber'],
+        answer: 0
+    },
+
+    {
+        question: 'Which of the following is a poor conductor of heat?',
+        options: ['Iron', 'Copper', 'Aluminium', 'Wood'],
+        answer: 3
+    },
+
+    {
+        question: 'Woollen clothes keep us warm because wool:',
+        options: ['Produces heat', 'Traps air', 'Absorbs water', 'Produces electricity'],
+        answer: 1
+    },
+
+    {
+        question: 'The SI unit of length is:',
+        options: ['Centimetre', 'Kilometre', 'Metre', 'Millimetre'],
+        answer: 2
+    },
+
+    {
+        question: 'Which instrument is commonly used to measure length?',
+        options: ['Thermometer', 'Ruler', 'Stopwatch', 'Balance'],
+        answer: 1
+    },
+
+    {
+        question: 'The distance travelled by an object in a given time is related to its:',
+        options: ['Temperature', 'Speed', 'Mass', 'Volume'],
+        answer: 1
+    },
+
+    {
+        question: 'The SI unit of time is:',
+        options: ['Minute', 'Hour', 'Second', 'Day'],
+        answer: 2
+    },
+
+    {
+        question: 'A body is said to be in motion when its position:',
+        options: ['Never changes', 'Changes with time', 'Remains fixed', 'Becomes heavier'],
+        answer: 1
+    },
+
+    {
+        question: 'Which of the following is an example of periodic motion?',
+        options: ['A car moving on a straight road', 'A pendulum swinging to and fro', 'A person standing still', 'A book lying on a table'],
+        answer: 1
+    },
+
+    {
+        question: 'The motion of a simple pendulum is:',
+        options: ['Circular motion', 'Periodic motion', 'Random motion', 'Linear motion only'],
+        answer: 1
+    },
+
+    {
+        question: 'The time taken by a pendulum to complete one oscillation is called its:',
+        options: ['Speed', 'Frequency', 'Time period', 'Distance'],
+        answer: 2
+    },
+
+    {
+        question: 'Which process provides energy to animals from food?',
+        options: ['Respiration', 'Excretion', 'Movement', 'Reproduction'],
+        answer: 0
+    },
+
+    {
+        question: 'Digestion of food begins in the:',
+        options: ['Stomach', 'Mouth', 'Small intestine', 'Large intestine'],
+        answer: 1
+    },
+
+    {
+        question: 'Which organ produces bile?',
+        options: ['Stomach', 'Liver', 'Pancreas', 'Kidney'],
+        answer: 1
+    },
+
+    {
+        question: 'Most absorption of digested food takes place in the:',
+        options: ['Mouth', 'Stomach', 'Small intestine', 'Large intestine'],
+        answer: 2
+    },
+
+    {
+        question: 'The process of taking oxygen into the body and releasing carbon dioxide is associated with:',
+        options: ['Respiration', 'Digestion', 'Excretion', 'Circulation'],
+        answer: 0
+    },
+
+    {
+        question: 'Which organ pumps blood throughout the body?',
+        options: ['Lungs', 'Kidney', 'Heart', 'Liver'],
+        answer: 2
+    },
+
+    {
+        question: 'Which organ helps remove wastes from the blood?',
+        options: ['Kidney', 'Stomach', 'Heart', 'Brain'],
+        answer: 0
+    },
+
+    {
+        question: 'The removal of waste products from the body is called:',
+        options: ['Digestion', 'Respiration', 'Excretion', 'Circulation'],
+        answer: 2
     }
 
 ];
@@ -1285,76 +1236,137 @@ const subjectName = "Science";
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
 
-    const studentName =
-        document.getElementById("studentName").value.trim();
+    const studentName = document.getElementById("studentName").value.trim();
+    const totalQuestions = questions.length;
 
-    const scoreText =
-        document.getElementById("score").innerText;
-
-    const percentageText =
-        document.getElementById("percentage").innerText;
-
-    // Calculate correct, wrong and unattempted answers
     let correct = 0;
     let attempted = 0;
 
-    questions.forEach((question, index) => {
+    questions.forEach((q, index) => {
         if (selectedAnswers[index] !== null) {
             attempted++;
 
-            if (selectedAnswers[index] === question.answer) {
+            if (selectedAnswers[index] === q.answer) {
                 correct++;
             }
         }
     });
 
-    const totalQuestions = questions.length;
     const wrong = attempted - correct;
     const unattempted = totalQuestions - attempted;
+
+    const score = correct;
+    const percentage = Math.round((correct / totalQuestions) * 100);
+
+    // Calculate grade
+    let grade;
+
+    if (percentage >= 90) {
+        grade = "A";
+    } else if (percentage >= 75) {
+        grade = "B";
+    } else if (percentage >= 50) {
+        grade = "C";
+    } else {
+        grade = "D";
+    }
 
     const date = new Date().toLocaleDateString();
 
     const doc = new jsPDF();
 
-    // Title
-    doc.text(studentClass + " " + studentSubject + " Quiz", 105, 20, {
-    align: "center"
-});
-    // Student information
-    doc.setFontSize(12);
+    // Border
+    doc.setLineWidth(1);
+    doc.rect(10, 10, 190, 277);
 
-    doc.text("Student Name: " + studentName, 20, 40);
-doc.text("Class: " + studentClass, 20, 50);
-doc.text("Subject: " + studentSubject, 20, 60);
-doc.text("Date: " + date, 20, 70);
+    // Main Heading
+    doc.setFontSize(22);
+    doc.setFont("helvetica", "bold");
+    doc.text("QUIZ REPORT", 105, 28, { align: "center" });
+
+    // Student information
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+
+    doc.text("Student Name: " + studentName, 20, 45);
+    doc.text("Class: " + studentClass, 20, 55);
+    doc.text("Subject: " + studentSubject, 20, 65);
+    doc.text("Date: " + date, 130, 45);
+
+    // Horizontal line
+    doc.line(20, 72, 190, 72);
 
     // Result heading
-    doc.setFontSize(15);
-    doc.text("Result Summary", 20, 70);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("RESULT", 105, 85, { align: "center" });
 
-    // Result details
-    doc.setFontSize(12);
+    // Result table
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
 
-    doc.text("Total Questions: " + totalQuestions, 25, 85);
-    doc.text("Attempted: " + attempted, 25, 95);
-    doc.text("Correct Answers: " + correct, 25, 105);
-    doc.text("Wrong Answers: " + wrong, 25, 115);
-    doc.text("Unattempted: " + unattempted, 25, 125);
-    doc.text("Score: " + scoreText, 25, 135);
-    doc.text("Percentage: " + percentageText, 25, 145);
+    doc.text("Total Questions", 25, 100);
+    doc.text(String(totalQuestions), 160, 100);
 
-    // Footer
+    doc.text("Attempted", 25, 112);
+    doc.text(String(attempted), 160, 112);
+
+    doc.text("Correct Answer", 25, 124);
+    doc.text(String(correct), 160, 124);
+
+    doc.text("Wrong Answer", 25, 136);
+    doc.text(String(wrong), 160, 136);
+
+    doc.text("Unattempted", 25, 148);
+    doc.text(String(unattempted), 160, 148);
+
+    doc.text("Score", 25, 160);
+    doc.text(score + " / " + totalQuestions, 160, 160);
+
+    doc.text("Percentage", 25, 172);
+    doc.text(percentage + "%", 160, 172);
+
+    doc.text("Grade", 25, 184);
+
+    doc.setFont("helvetica", "bold");
+    doc.text(grade, 160, 184);
+
+    // Separator
+    doc.line(20, 193, 190, 193);
+
+    // Grading System
+    doc.setFontSize(14);
+    doc.text("GRADING SYSTEM", 20, 207);
+
     doc.setFontSize(10);
-    doc.text(
-        "Generated from Quiz",
-        105,
-        280,
-        { align: "center" }
-    );
+    doc.setFont("helvetica", "normal");
 
-    // Save PDF
+    doc.text("A - Superior", 25, 219);
+    doc.text("B - Above Average", 25, 229);
+    doc.text("C - Average", 100, 219);
+    doc.text("D - Below Average", 100, 229);
+
+    // Remarks
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("REMARKS", 20, 244);
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("______________________________________________", 20, 253);
+    doc.text("______________________________________________", 20, 261);
+
+    // Teacher / Parents
+    doc.text("Teacher: ____________________", 20, 273);
+    doc.text("Parents: ____________________", 120, 273);
+
+    // File name
+    const safeName = studentName
+        ? studentName.replace(/\s+/g, "_")
+        : "Student";
+
     const fileName =
-        studentName.replace(/\s+/g, "_") + "_Maths_Result.pdf";
+        safeName + "_" + studentSubject + "_Quiz_Report.pdf";
 
     doc.save(fileName);
 }
