@@ -1745,6 +1745,29 @@ function downloadAnswerSheet() {
 
     doc.save(fileName);
 }
+
+// Only protect the page while the test is running
+    if (quizBox && quizBox.style.display !== "none") {
+
+        // Immediately create another history entry
+        history.pushState({ quizPage: true }, "", window.location.href);
+
+        const confirmExit = confirm(
+            "Are you sure you want to exit the test?"
+        );
+
+        if (confirmExit) {
+            // Exit the test
+            document.getElementById("quizBox").style.display = "none";
+            document.getElementById("result").style.display = "block";
+
+            // Optional: show result as exited
+            document.getElementById("score").innerText =
+                "Test Ended";
+
+        }
+    }
+});
 </script>
          <!-- Footer -->
           <footer>
